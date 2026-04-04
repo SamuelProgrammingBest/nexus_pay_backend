@@ -1,30 +1,32 @@
-const dotenv = require('dotenv');
-dotenv.config()
-const express = require('express'); 
+const dotenv = require("dotenv");
+dotenv.config();
+const express = require("express");
+
+const cors = require("cors");
 
 const app = express();
 
-app.listen(process.env.PORT || 3001, (err)=>{
-    if(err) console.log(err)
-    console.log(`Server is running on port ${process.env.PORT}`);
-})
+app.listen(process.env.PORT || 3001, (err) => {
+  if (err) console.log(err);
+  console.log(`Server is running on port ${process.env.PORT}`);
+});
 
-const {connectMyDb} = require("./config/db.connect")
+const { connectMyDb } = require("./config/db.connect");
 
-connectMyDb()
+connectMyDb();
 
+app.use(express.json());
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  }),
+);
 
-app.use(express.json())
-app.use(cors({
-  origin: "*",
-  credentials: true
-}))
+const AccountRouter = require("../Banking Backend/routers/account.router");
 
-
-const AccountRouter = require("../Banking Backend/routers/account.router")
-
-app.use("/api/v3", AccountRouter)
+app.use("/api/v3", AccountRouter);
 
 // Account Model
 // Transfer Model
-// 
+//
