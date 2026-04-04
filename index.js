@@ -23,7 +23,7 @@ app.use(
   }),
 );
 
-const AccountRouter = require("/routers/account.router");
+const AccountRouter = require("./routers/account.router");
 
 app.use("/api/v3", AccountRouter);
 
