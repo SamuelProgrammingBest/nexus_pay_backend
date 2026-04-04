@@ -15,6 +15,11 @@ connectMyDb()
 
 
 app.use(express.json())
+app.use(cors({
+  origin: "*",
+  credentials: true
+}))
+
 
 const AccountRouter = require("../Banking Backend/routers/account.router")
 
