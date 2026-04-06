@@ -62,7 +62,7 @@ const createAccount = async (req, res) => {
     console.log(error.message);
     return res
       .status(404)
-      .send({ message: "An error occurred while creating account" });
+      .send({ message: "An error occurred while creating account" + error });
   }
 };
 
