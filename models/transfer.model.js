@@ -35,6 +35,10 @@ const transferSchema = new mongoose.Schema(
             required:true
         },
 
+        desc:{
+            type:String
+        },
+
         transferID:{
             type:String,
             required:true

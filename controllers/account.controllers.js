@@ -113,7 +113,7 @@ const getAccount = async (req, res) => {
 
 const transferMoney = async (req, res) => {
   try {
-    const { accountNo, amount, PIN } = req.body;
+    const { accountNo, amount, PIN, desc } = req.body;
     const { id } = req.user;
 
     if (!accountNo || !amount) {
@@ -197,6 +197,7 @@ const transferMoney = async (req, res) => {
     const transfer = transfers.create({
       fromId: id,
       toId: findTransferee._id,
+      desc: desc || "No description",
       amount: Number(amount),
       senderBalanceAfter: userAcc.balance,
       recieverBalanceAfter: transferAcc.balance,
@@ -250,7 +251,7 @@ const getTransferHistory = async (req, res) => {
       .skip(skip)
       .limit(limit);
 
-    if (transferHistory == []) {
+    if (transferHistory.length === 0) {
       return res
         .status(404)
         .send({ message: `Be like say u no dey verified or network` });
@@ -310,6 +311,7 @@ const getTransferHistory = async (req, res) => {
         date: transfer.date.toLocaleString(),
         transactionId: transfer._id,
         desc,
+        transferDesc: transfer.desc,
         balance,
       });
 
@@ -364,6 +366,9 @@ const getOneTransfer = async (req, res) => {
         transfer.fromId == id
           ? transfer.senderBalanceAfter
           : transfer.recieverBalanceAfter,
+      amount: transfer.amount,
+      date: transfer.date.toLocaleString(),
+      desc: transfer.desc,
     };
 
     return res.status(200).send({
