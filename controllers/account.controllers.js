@@ -197,7 +197,7 @@ const transferMoney = async (req, res) => {
     const transfer = transfers.create({
       fromId: id,
       toId: findTransferee._id,
-      desc: desc || "No description",
+      desc: desc ? desc : "No description",
       amount: Number(amount),
       senderBalanceAfter: userAcc.balance,
       recieverBalanceAfter: transferAcc.balance,
