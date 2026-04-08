@@ -308,7 +308,7 @@ const getTransferHistory = async (req, res) => {
         type: type,
         amount: transfer.amount,
         account,
-        date: transfer.date.toLocaleString(),
+        date: transfer.date,
         transactionId: transfer.transferID,
         id: transfer._id,
         desc,
