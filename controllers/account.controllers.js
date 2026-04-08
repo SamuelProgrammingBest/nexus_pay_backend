@@ -358,6 +358,7 @@ const getOneTransfer = async (req, res) => {
     }
 
     const transaction = {
+      id:transfer._id,
       type: transfer.fromId == id ? "debit" : "credit",
       accountNo:
         transfer.fromId == id
