@@ -349,8 +349,8 @@ const getOneTransfer = async (req, res) => {
     const { transferId } = req.params;
 
     const transfer = await transfers.findById({ _id: transferId }).populate([
-      { path: "fromId", select: "accountNo balance" },
-      { path: "toId", select: "accountNo balance" },
+      { path: "fromId", select: "accountNo balance fullName" },
+      { path: "toId", select: "accountNo balance fullName" },
     ]);
 
     if (!transfer) {
@@ -370,6 +370,9 @@ const getOneTransfer = async (req, res) => {
       amount: transfer.amount,
       date: transfer.date.toLocaleString(),
       desc: transfer.desc,
+      transactionId: transfer.transferID,
+      recipientName:
+        transfer.fromId == id ? transfer.toId.fullName : transfer.fromId.fullName,
     };
 
     return res.status(200).send({
