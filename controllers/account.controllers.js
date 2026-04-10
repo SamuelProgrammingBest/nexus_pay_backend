@@ -399,6 +399,14 @@ const getAnalytics = async (req, res) => {
   try {
     const { id } = req.user;
 
+    const userAcc = await account.findById({ _id: id });
+
+    if (!userAcc) {
+      return res.status(400).send({
+        message: "User account not found",
+      });
+    }
+
     const allTransfers = await transfers.find({
       $or: [{ fromId: id }, { toId: id }],
     });
@@ -431,6 +439,7 @@ const getAnalytics = async (req, res) => {
     return res.status(200).send({
       message: `Analytics gotten successfully`,
       data: {
+        userAcc,
         allTransfers,
         debits,
         credits,
