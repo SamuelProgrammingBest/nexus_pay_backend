@@ -203,6 +203,11 @@ const transferMoney = async (req, res) => {
       recieverBalanceAfter: transferAcc.balance,
     });
 
+    const getTransfers = await transfers.find({
+      fromId: id,
+      toId: findTransferee._id,
+    });
+
     if (!transfer || !transferAcc || !userAcc) {
       return res.status(400).send({
         message: "Failed transfer",
@@ -214,6 +219,7 @@ const transferMoney = async (req, res) => {
       data: {
         transferAcc,
         userAcc,
+        getTransfers,
       },
     });
   } catch (error) {
