@@ -123,7 +123,7 @@ const transferMoney = async (req, res) => {
     }
 
     const accountNumber =
-      typeof accountNo === "string" ? Number(amount) : accountNo;
+      typeof accountNo === "string" ? Number(accountNo) : accountNo;
 
     if (accountNumber <= 0 && amount <= 0) {
       return res.status(400).send({
