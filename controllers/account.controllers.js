@@ -219,7 +219,7 @@ const transferMoney = async (req, res) => {
       data: {
         transferAcc,
         userAcc,
-        transfer
+        transfer,
         getTransfers,
       },
     });
