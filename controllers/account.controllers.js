@@ -364,15 +364,17 @@ const getOneTransfer = async (req, res) => {
       return res.status(404).send({ message: `Be like say the id no correct` });
     }
 
+    const type = transfer.fromId._id == id ? "debit" : "credit";
+
     const transaction = {
       id:transfer._id,
-      type: transfer.fromId == id ? "debit" : "credit",
+      type: transfer.fromId._id == id ? "debit" : "credit",
       accountNo:
-        transfer.fromId == id
+        type === "debit"
           ? transfer.toId.accountNo
           : transfer.fromId.accountNo,
       balance:
-        transfer.fromId == id
+        type === "debit"
           ? transfer.senderBalanceAfter
           : transfer.recieverBalanceAfter,
       amount: transfer.amount,
@@ -380,7 +382,9 @@ const getOneTransfer = async (req, res) => {
       desc: transfer.desc,
       transactionId: transfer.transferID,
       recipientName:
-        transfer.fromId == id ? transfer.toId.fullName : transfer.fromId.fullName,
+        type === "debit"
+          ? transfer.toId.fullName
+          : transfer.fromId.fullName,
     };
 
     return res.status(200).send({
