@@ -258,11 +258,11 @@ const getTransferHistory = async (req, res) => {
       .skip(skip)
       .limit(limit);
 
-    if (transferHistory.length === 0) {
-      return res
-        .status(404)
-        .send({ message: `Be like say u no dey verified or network` });
-    }
+    // if (transferHistory.length === 0) {
+    //   return res
+    //     .status(404)
+    //     .send({ message: `Be like say u no dey verified or network` });
+    // }
 
     // const sent = transferHistory.filter(transfer => transfer.fromId._id == id)
 
