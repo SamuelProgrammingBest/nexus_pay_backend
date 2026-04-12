@@ -4,6 +4,12 @@ const verifyAccountHolder = async (req, res, next) => {
   try {
     const { authorization } = req.headers;
 
+    // 1. Check if header exists
+    if (!authorization) {
+      return res.status(401).send({ message: "No authorization header found" });
+    }
+
+
     const token = authorization.startsWith("Bearer ")
       ? authorization.substring(7)
       : authorization;
