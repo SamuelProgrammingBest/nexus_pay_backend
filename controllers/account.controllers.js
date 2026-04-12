@@ -173,7 +173,7 @@ const transferMoney = async (req, res) => {
       {
         balance: userBalance.balance - Number(amount),
       },
-      { new: true, runValidators: true },
+      { returnDocument: "after", runValidators: true },
     );
 
     const findTransferee = await account.findOne({ accountNo: accountNumber });
@@ -189,7 +189,7 @@ const transferMoney = async (req, res) => {
       {
         balance: findTransferee.balance + Number(amount),
       },
-      { new: true, runValidators: true },
+      { returnDocument: "after", runValidators: true },
     );
 
     // const balanceb4 =
