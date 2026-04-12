@@ -194,7 +194,7 @@ const transferMoney = async (req, res) => {
 
     // const balanceb4 =
 
-    const transfer = transfers.create({
+    const transfer = await transfers.create({
       fromId: id,
       toId: findTransferee._id,
       desc: desc,
