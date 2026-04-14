@@ -239,6 +239,9 @@ const getTransferHistory = async (req, res) => {
     const limit = 10;
 
     const skip = (page - 1) * limit;
+    const pages = Math.ceil((await transfers.countDocuments({
+      $or: [{ fromId: id }, { toId: id }],
+    })) / limit);
 
     const transferHistory = await transfers
       .find({
@@ -290,7 +293,6 @@ const getTransferHistory = async (req, res) => {
     //   )
     // })
 
-    let notifications = [];
 
     let transactions = [];
 
@@ -322,13 +324,6 @@ const getTransferHistory = async (req, res) => {
         transferDesc: transfer.desc,
         balance,
       });
-
-      notifications.push({
-        userId: id,
-        type,
-        message,
-        isRead: false,
-      });
     });
 
     return res.status(200).send({
@@ -336,7 +331,8 @@ const getTransferHistory = async (req, res) => {
       data: {
         transferHistory,
         transactions,
-        notifications,
+        pages,
+        limit,
       },
     });
   } catch (error) {
