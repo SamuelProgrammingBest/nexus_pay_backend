@@ -331,8 +331,6 @@ const getTransferHistory = async (req, res) => {
       data: {
         transferHistory,
         transactions,
-        pages,
-        limit,
       },
     });
   } catch (error) {
