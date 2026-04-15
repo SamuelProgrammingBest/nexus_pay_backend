@@ -18,7 +18,10 @@ connectMyDb();
 app.use(express.json());
 app.use(
   cors({
-    origin: 'http://localhost:5173', // Allow your React app
+    origin: [
+    "http://localhost:5173",
+    "https://nexus-pay-frontend-1039bvcfc-samuel-adewales-projects.vercel.app"
+  ], // Allow your React app and deployed app
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   }),
